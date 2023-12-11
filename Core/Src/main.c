@@ -107,6 +107,14 @@ uint8_t begin = 0xA5;
 uint8_t temp = 0x01;
 
 DH Tx;
+typedef struct
+{
+	uint8_t begin_data;
+	float tx;
+	uint8_t end_data;
+}DATA;
+DATA data;
+uint8_t trans[4];
 /* USER CODE END 0 */
 
 /**
@@ -163,6 +171,13 @@ int main(void)
 	
 	__HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
 	HAL_UART_Receive_DMA(&huart1,(uint8_t *)Rx,128);
+	data.begin_data = 0x5A;
+	data.end_data = 0xAA;
+	while(1){
+		HAL_UART_Transmit_IT(&huart1,&data.begin_data,sizeof(data));
+		data.tx++;
+		HAL_Delay(0xff);
+	}
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
