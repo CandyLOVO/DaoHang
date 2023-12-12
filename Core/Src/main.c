@@ -107,14 +107,19 @@ uint8_t begin = 0xA5;
 uint8_t temp = 0x01;
 
 DH Tx;
+
+#pragma pack(1) //???????
 typedef struct
 {
 	uint8_t begin_data;
 	float tx;
 	uint8_t end_data;
 }DATA;
+#pragma pack(push)
+
 DATA data;
 uint8_t trans[4];
+uint16_t size;
 /* USER CODE END 0 */
 
 /**
